@@ -37,6 +37,7 @@ type PodBusterReconciler struct {
 //+kubebuilder:rbac:groups=examples.stackzoo.io,resources=podbusters,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=examples.stackzoo.io,resources=podbusters/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=examples.stackzoo.io,resources=podbusters/finalizers,verbs=update
+//+kubebuilder:rbac:groups="core",resources=pods,verbs=get;list;watch;update;patch
 
 func (r *PodBusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	l := log.FromContext(ctx)
