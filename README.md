@@ -64,7 +64,6 @@ UnDeploy the controller from the cluster:
 make undeploy
 ```
 
-
 ## How it works
 This project aims to follow the Kubernetes [Operator pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/).
 <br/>
@@ -117,12 +116,21 @@ make prepare-resources
 make run
 ```
 
-5. When you are done, stop the local kind cluster run:
+5. Apply the CRD manifest:
+```sh
+kubectl apply -f config/samples/examples_v1alpha1_podbuster.yaml
+```
+
+6. Check the operator logs in the first terminal:
+```sh
+2023-03-20T14:04:09+01:00       INFO    Operator Blueprint      {"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "3e93bdbf-1eed-47e1-92db-5ad9786f90a2", "Deleting pod": "busybox"}
+2023-03-20T14:04:09+01:00       INFO    Operator Blueprint      {"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "3e93bdbf-1eed-47e1-92db-5ad9786f90a2", "Deleting pod": "nginx"}
+```
+
+7. When you are done, stop the local kind cluster run:
 ```sh
 make kind-down
 ```
-
-**NOTE:** You can also run this in one step by running: `make install run`
 
 ### Modifying the API definitions
 If you are editing the API definitions, generate the manifests such as CRs or CRDs using:
@@ -130,10 +138,6 @@ If you are editing the API definitions, generate the manifests such as CRs or CR
 ```sh
 make manifests
 ```
-
-**NOTE:** Run `make --help` for more information on all potential `make` targets
-
-More information can be found via the [Kubebuilder Documentation](https://book.kubebuilder.io/introduction.html)
 
 ## License
 
