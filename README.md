@@ -24,6 +24,7 @@ Useful references:
 - `make`
 - `kubectl`
 - `docker`
+- `kind`
 - `go`
 - `kubebuilder`
 
