@@ -29,7 +29,9 @@ Useful references:
 - `kubebuilder`
 
 ## Getting Started
-You’ll need a Kubernetes cluster to run against. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
+You’ll need a Kubernetes cluster to run against. 
+<br/>
+You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
 <br/>
 **Note:** Your controller will automatically use the current context in your kubeconfig file (i.e. whatever cluster `kubectl cluster-info` shows).
 
@@ -82,7 +84,7 @@ It uses [Controllers](https://kubernetes.io/docs/concepts/architecture/controlle
 which provide a reconcile function responsible for synchronizing resources until the desired state is reached on the cluster.
 
 <br/>
-This is a very simple and vanilla operator, basically it does nothing more than delete all the pods in the namespace specified in the CRD.
+This is a very simple vanilla operator, basically it does nothing more than delete all the pods in the namespace specified in the CRD.
 <br/>
 Let's take a look at the example manifest inside config/samples:
 
@@ -138,7 +140,7 @@ kubectl apply -f config/samples/examples_v1alpha1_podbuster.yaml
 2023-03-20T14:04:09+01:00       INFO    Operator Blueprint      {"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "3e93bdbf-1eed-47e1-92db-5ad9786f90a2", "Deleting pod": "nginx"}
 ```
 
-7. When you are done, stop the local kind cluster run:
+7. When you are done, stop the local kind cluster:
 ```sh
 make kind-down
 ```
