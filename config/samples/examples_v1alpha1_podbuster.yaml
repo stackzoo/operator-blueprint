@@ -1,0 +1,12 @@
+apiVersion: examples.stackzoo.io/v1alpha1
+kind: PodBuster
+metadata:
+  labels:
+    app.kubernetes.io/name: podbuster
+    app.kubernetes.io/instance: podbuster-sample
+    app.kubernetes.io/part-of: operator-blueprint
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: operator-blueprint
+  name: podbuster-sample
+spec:
+  namespace: test

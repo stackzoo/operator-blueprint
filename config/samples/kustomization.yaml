@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- examples_v1alpha1_podbuster.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples

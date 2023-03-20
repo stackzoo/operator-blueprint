@@ -19,25 +19,16 @@ Useful references:
 
 ## Getting Started
 You’ll need a Kubernetes cluster to run against. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
+<br/>
 **Note:** Your controller will automatically use the current context in your kubeconfig file (i.e. whatever cluster `kubectl cluster-info` shows).
 
 <br/>
 
-The *Makefile* already contains functions to start and stop a local kind cluster.
+The *Makefile* already contains all the functions that you need.
 <br/>
 to see all make targets run:
 ```sh
 make help
-```
-
-To start a local kind cluster run:
-```sh
-make kind-up
-```
-
-To stop the local kind cluster run:
-```sh
-make kind-down
 ```
 
 ### Running on the cluster
@@ -76,21 +67,59 @@ make undeploy
 
 ## How it works
 This project aims to follow the Kubernetes [Operator pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/).
-
+<br/>
 It uses [Controllers](https://kubernetes.io/docs/concepts/architecture/controller/),
 which provide a reconcile function responsible for synchronizing resources until the desired state is reached on the cluster.
 
-### Test It Out
-1. Install the CRDs into the cluster:
+<br/>
+This is a very simple and vanilla operator, basically it does nothing more than delete all the pods in the namespace specified in the CRD.
+<br/>
+Let's take a look at the example manifest inside config/samples:
 
+```yaml
+apiVersion: examples.stackzoo.io/v1alpha1
+kind: PodBuster
+metadata:
+  labels:
+    app.kubernetes.io/name: podbuster
+    app.kubernetes.io/instance: podbuster-sample
+    app.kubernetes.io/part-of: operator-blueprint
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: operator-blueprint
+  name: podbuster-sample
+spec:
+  namespace: test
+```
+
+When you apply this manifest to the cluster (after deploying the operator) the custom controller will delete every pods inside the *test* namespace.
+
+### Test It Out
+
+1. Start a local kind cluster:
+```sh
+make kind-up
+```
+
+
+
+2. Install the CRDs into the cluster:
 ```sh
 make install
 ```
 
-2. Run your controller (this will run in the foreground, so switch to a new terminal if you want to leave it running):
+3. Prepare resources on the cluster:
+```sh
+make prepare-resources
+```
 
+4. Run your controller (this will run in the foreground, so switch to a new terminal if you want to leave it running):
 ```sh
 make run
+```
+
+5. When you are done, stop the local kind cluster run:
+```sh
+make kind-down
 ```
 
 **NOTE:** You can also run this in one step by running: `make install run`

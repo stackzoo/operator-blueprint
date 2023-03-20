@@ -1,0 +1,31 @@
+# permissions for end users to edit podbusters.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: podbuster-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: operator-blueprint
+    app.kubernetes.io/part-of: operator-blueprint
+    app.kubernetes.io/managed-by: kustomize
+  name: podbuster-editor-role
+rules:
+- apiGroups:
+  - examples.stackzoo.io
+  resources:
+  - podbusters
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - examples.stackzoo.io
+  resources:
+  - podbusters/status
+  verbs:
+  - get
