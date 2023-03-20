@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: operator-blueprint-system
   name: operator-blueprint-deployment
   labels:
     app: operator-blueprint
@@ -16,4 +17,4 @@ spec:
     spec:
       containers:
       - name: operator-blueprint
-        image: ghcr.io/stackzoo/operator-blueprint:0.1.0
+        image: ghcr.io/stackzoo/operator-blueprint:0.1.2
