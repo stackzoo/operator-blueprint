@@ -4,6 +4,10 @@
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/stackzoo/operator-blueprint)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+<p float="left">
+  <img src="images/k8s.png" width="300" />
+</p>
+
 This repo contains an example of a custom *kubernetes* operator, made with <a href="https://github.com/kubernetes-sigs/kubebuilder">kubebuilder</a>.
 
 ## References
