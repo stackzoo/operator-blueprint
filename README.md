@@ -1,5 +1,5 @@
 #  OPERATOR BLUEPRINT
-
+[![CI](https://github.com/stackzoo/operator-blueprint/actions/workflows/ci.yaml/badge.svg)](https://github.com/stackzoo/operator-blueprint/actions/workflows/ci.yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/stackzoo/operator-blueprint)](https://goreportcard.com/report/github.com/stackzoo/operator-blueprint)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/stackzoo/operator-blueprint)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
