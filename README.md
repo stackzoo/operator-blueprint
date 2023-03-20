@@ -1,6 +1,7 @@
 #  OPERATOR BLUEPRINT
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/stackzoo/operator-blueprint)](https://goreportcard.com/report/github.com/stackzoo/operator-blueprint) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/stackzoo/operator-blueprint)](https://goreportcard.com/report/github.com/stackzoo/operator-blueprint)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/stackzoo/operator-blueprint)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 This repo contains an example of a custom *kubernetes* operator, made with <a href="https://github.com/kubernetes-sigs/kubebuilder">kubebuilder</a>.
