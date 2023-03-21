@@ -83,5 +83,6 @@ func (r *PodBusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 func (r *PodBusterReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&examplesv1alpha1.PodBuster{}).
+		Owns(&examplesv1alpha1.PodBuster{}).
 		Complete(r)
 }
