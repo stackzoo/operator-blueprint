@@ -84,7 +84,7 @@ It uses [Controllers](https://kubernetes.io/docs/concepts/architecture/controlle
 which provide a reconcile function responsible for synchronizing resources until the desired state is reached on the cluster.
 
 <br/>
-This is a very simple vanilla operator, basically it does nothing more than delete all the pods in the namespace specified in the CRD.
+This is a very simple vanilla operator, basically it does nothing more than deleting all the pods in the namespace specified in the CRD.
 <br/>
 Let's take a look at the example manifest inside config/samples:
 
@@ -207,7 +207,7 @@ Events:  <none>
 As you can see from the last lines, the status is *OK: true*
 
 
-7. When you are done, stop the local kind cluster:
+7. When you are done, delete the local kind cluster:
 ```sh
 make kind-down
 ```

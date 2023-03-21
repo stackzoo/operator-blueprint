@@ -52,12 +52,14 @@ func (r *PodBusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	}
 	l.Info("PodBuster", "PodBuster", PodBuster)
 
+	// Get pod list
 	pods := &corev1.PodList{}
 	if err := r.List(ctx, pods, client.InNamespace(PodBuster.Spec.Namespace)); err != nil {
 		l.Error(err, "Failed to list pods")
 		return ctrl.Result{}, err
 	}
-	// l.Info("Found pods", "pods", pods.Items)
+
+	// Loop on pods and delete the ones that are in the namespace specified in PodBuster CR
 	for _, pod := range pods.Items {
 		// Remove the pod
 		l.Info("PodBuster", "Deleting pod", pod.Name)
@@ -66,6 +68,7 @@ func (r *PodBusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 			return ctrl.Result{}, err
 		}
 	}
+	// Change PodBuster status
 	PodBuster.Status.Ok = true
 	if err := r.Status().Update(ctx, PodBuster); err != nil {
 		l.Error(err, "unable to update PodBuster's status", "status", true)
