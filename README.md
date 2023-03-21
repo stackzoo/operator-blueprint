@@ -136,9 +136,76 @@ kubectl apply -f config/samples/examples_v1alpha1_podbuster.yaml
 
 6. Check the operator logs in the first terminal:
 ```sh
-2023-03-20T14:04:09+01:00       INFO    Operator Blueprint      {"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "3e93bdbf-1eed-47e1-92db-5ad9786f90a2", "Deleting pod": "busybox"}
-2023-03-20T14:04:09+01:00       INFO    Operator Blueprint      {"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "3e93bdbf-1eed-47e1-92db-5ad9786f90a2", "Deleting pod": "nginx"}
+2023-03-21T10:00:41+01:00	INFO	PodBuster - enter reconcile	{"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "f2d674c7-7ba0-45c8-92b8-2c1b384f6dc1", "req": "default/podbuster-sample"}
+2023-03-21T10:00:41+01:00	INFO	PodBuster	{"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "f2d674c7-7ba0-45c8-92b8-2c1b384f6dc1", "PodBuster": {"apiVersion": "examples.stackzoo.io/v1alpha1", "kind": "PodBuster", "namespace": "default", "name": "podbuster-sample"}}
+2023-03-21T10:00:41+01:00	INFO	PodBuster	{"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "f2d674c7-7ba0-45c8-92b8-2c1b384f6dc1", "Deleting pod": "busybox"}
+2023-03-21T10:00:41+01:00	INFO	PodBuster	{"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "f2d674c7-7ba0-45c8-92b8-2c1b384f6dc1", "Deleting pod": "nginx"}
+2023-03-21T10:00:41+01:00	INFO	PodBuster's status updated	{"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "f2d674c7-7ba0-45c8-92b8-2c1b384f6dc1", "status": true}
+2023-03-21T10:00:41+01:00	INFO	PodBuster custom resource reconciled	{"controller": "podbuster", "controllerGroup": "examples.stackzoo.io", "controllerKind": "PodBuster", "PodBuster": {"name":"podbuster-sample","namespace":"default"}, "namespace": "default", "name": "podbuster-sample", "reconcileID": "f2d674c7-7ba0-45c8-92b8-2c1b384f6dc1"}
 ```
+
+These logs tell you that your *kubectl apply* command triggered the controller *reconciliation loop*.
+<br/>
+
+You can also inspect the status of the resources:
+```sh
+❯ kubectl describe podbuster podbuster-sample
+
+Name:         podbuster-sample
+Namespace:    default
+Labels:       app.kubernetes.io/created-by=operator-blueprint
+              app.kubernetes.io/instance=podbuster-sample
+              app.kubernetes.io/managed-by=kustomize
+              app.kubernetes.io/name=podbuster
+              app.kubernetes.io/part-of=operator-blueprint
+Annotations:  <none>
+API Version:  examples.stackzoo.io/v1alpha1
+Kind:         PodBuster
+Metadata:
+  Creation Timestamp:  2023-03-21T09:00:41Z
+  Generation:          1
+  Managed Fields:
+    API Version:  examples.stackzoo.io/v1alpha1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:status:
+        .:
+        f:ok:
+    Manager:      __debug_bin
+    Operation:    Update
+    Subresource:  status
+    Time:         2023-03-21T09:00:41Z
+    API Version:  examples.stackzoo.io/v1alpha1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .:
+          f:kubectl.kubernetes.io/last-applied-configuration:
+        f:labels:
+          .:
+          f:app.kubernetes.io/created-by:
+          f:app.kubernetes.io/instance:
+          f:app.kubernetes.io/managed-by:
+          f:app.kubernetes.io/name:
+          f:app.kubernetes.io/part-of:
+      f:spec:
+        .:
+        f:namespace:
+    Manager:         kubectl-client-side-apply
+    Operation:       Update
+    Time:            2023-03-21T09:00:41Z
+  Resource Version:  3758
+  UID:               c081bcd9-d513-4227-bdd6-8dcb68276cbf
+Spec:
+  Namespace:  test
+Status:
+  Ok:    true
+Events:  <none>
+```
+
+As you can see from the last lines, the status is *OK: true*
+
 
 7. When you are done, stop the local kind cluster:
 ```sh

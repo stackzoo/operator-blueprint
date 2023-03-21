@@ -17,4 +17,4 @@ spec:
     spec:
       containers:
       - name: operator-blueprint
-        image: ghcr.io/stackzoo/operator-blueprint:0.1.2
+        image: ghcr.io/stackzoo/operator-blueprint:0.1.3

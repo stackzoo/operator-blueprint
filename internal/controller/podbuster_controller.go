@@ -34,20 +34,23 @@ type PodBusterReconciler struct {
 	Scheme *runtime.Scheme
 }
 
+// RBAC permissions to monitor podbusters
 //+kubebuilder:rbac:groups=examples.stackzoo.io,resources=podbusters,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=examples.stackzoo.io,resources=podbusters/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=examples.stackzoo.io,resources=podbusters/finalizers,verbs=update
-//+kubebuilder:rbac:groups="core",resources=pods,verbs=get;list;watch;update;patch
+
+// RBAC permissions to monitor pods
+//+kubebuilder:rbac:groups="",resources=pods,verbs=get;list;watch;update;patch;delete
 
 func (r *PodBusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	l := log.FromContext(ctx)
-	l.Info("Operator Blueprint - enter reconcile", "req", req)
+	l.Info("PodBuster - enter reconcile", "req", req)
 
 	PodBuster := &examplesv1alpha1.PodBuster{}
 	if err := r.Get(ctx, req.NamespacedName, PodBuster); err != nil {
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
-	l.Info("Operator Blueprint", "PodBuster", PodBuster)
+	l.Info("PodBuster", "PodBuster", PodBuster)
 
 	pods := &corev1.PodList{}
 	if err := r.List(ctx, pods, client.InNamespace(PodBuster.Spec.Namespace)); err != nil {
@@ -57,13 +60,19 @@ func (r *PodBusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	// l.Info("Found pods", "pods", pods.Items)
 	for _, pod := range pods.Items {
 		// Remove the pod
-		l.Info("Operator Blueprint", "Deleting pod", pod.Name)
+		l.Info("PodBuster", "Deleting pod", pod.Name)
 		if err := r.Delete(ctx, &pod); err != nil {
 			l.Error(err, "Failed to delete pod", "pod", pod.Name)
 			return ctrl.Result{}, err
 		}
 	}
-
+	PodBuster.Status.Ok = true
+	if err := r.Status().Update(ctx, PodBuster); err != nil {
+		l.Error(err, "unable to update PodBuster's status", "status", true)
+		return ctrl.Result{}, err
+	}
+	l.Info("PodBuster's status updated", "status", true)
+	l.Info("PodBuster custom resource reconciled")
 	return ctrl.Result{}, nil
 }
 
