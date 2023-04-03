@@ -19,6 +19,7 @@ Useful references:
 - kubernetes official <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">docs</a>
 - kubebuilder official <a href="https://book.kubebuilder.io/">docs</a>
 - O'REILLY <a href="https://www.oreilly.com/library/view/programming-kubernetes/9781492047094/">programming kubernetes</a>
+- Philippe Martin <a href="https://www.amazon.com/Kubernetes-Programming-Go-Clients-Operators/dp/1484290259">Kubernetes programming with Go</a>
 
 ## Prerequisites
 - `make`
